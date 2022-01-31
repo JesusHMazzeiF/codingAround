@@ -81,4 +81,4 @@ $ df | awk 'NR==7, NR==11 {print NR, $0}'   -- NR is the number of records or li
 
 We can also get a line count with awk, like so:
 
-$ awk 'END {print NR}' /etc/shells -- this prints the number of the record once the input has been read. END does the action after the input is processed. We can add the number of lines of more files if we pass different files one after another.
+$ awk 'END {print NR}' /etc/shells -- this prints the number of the record once the input has been read. END does the action after the input is processed. We can add the number of lines of more files if we pass different files one after another. 
