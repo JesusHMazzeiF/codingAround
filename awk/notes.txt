@@ -1,0 +1,84 @@
+Syntax
+
+$ awk '{command}'
+Ex: ps | awk '{print $1}' -- prints firs column of the output of the 'ps' command pipelined into awk. $N means column N. 
+
+The default separator for columns is the space. This separator can be changed
+
+$0 means everything
+
+In the file /etc/passwd we find lines like these
+
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+
+In these lines, the separator is not a space. It's a :. So we have to tell awk to use a different separator, lke this:
+
+$ awk -F ":" '{print $1}' /etc/passwd
+
+This would print the first column separated by : (the users)
+
+If we want to print more columns, we just add more $N to the print command
+
+$ awk -F ":" '{print $1 $6 $7}' /etc/passwd -- this would print columns 1, 6 and 7
+
+
+The result is: 
+systemd-timesync/run/systemd/usr/sbin/nologin
+messagebus/nonexistent/usr/sbin/nologin
+syslog/home/syslog/usr/sbin/nologin
+_apt/nonexistent/usr/sbin/nologin
+tss/var/lib/tpm/bin/false
+
+If we want to add spaces to the print, it would be like this
+
+$ awk -F ":" '{print $1" "$6" "$7}' /etc/passwd 
+
+\t instead of space to add a tab
+
+We can also change the separator, print it and change it like so.
+
+$ awk 'BEGIN{FS=":"; OFS="-"} {print $1, $6, $7}' /etc/passwd -- BEGIN means something that will be done before any input lines are read. END means the opposite
+
+We can also search for a pattern, so you can make awk ignore what you don't want to print. For example you can print the file /etc/shells without the first comments of the file
+
+$ awk -F "/" '/^\// {print $NF}' /etc/shells
+
+$NF means last column (can be pipped into uniq command to print only uniq lines, sort to sort it)
+
+We can also perform operations for columns, for examen sums
+
+$ df | awk '/none/ {print $1"\t"$2 + $3}'
+
+We can also filter by line length
+
+$ awk 'length($0) > 7' /etc/shells
+
+this would lines in the shells file that have a lenght greater than 7
+
+awk is a scripting languange in itself. This means we can use the scripting tools, for example:
+
+$ ps -ef | awk '{ if($NF == "/usr/bin/zsh") print $0}'
+
+And we can also use more scripting tools like so:
+
+$ awk 'BEGIN { for(i=1; i<=10 ; i++) print "The square root of ", i, "is", i*i;}'
+
+We can also match certain column with a patter to filter, like so:
+
+$ awk '$1 /^[b,c]/ {print $0}' .bashrc -- this means the $1 column needs to match the pattern
+
+More examples of using functions:
+
+$ awk '{print substr($0, 4)}' numbered.txt -- prints a substring starting on position 4
+
+$ awk 'match($0, /o/) {print $0 " has \"o\" character at " RSTART}' numbered.txt -- This prints any line that has a letter o and also prints the position it's at, using RSTART. RSTART is the index location of the match
+
+We can also tell awk to print a section of an input, for example:
+
+$ df | awk 'NR==7, NR==11 {print NR, $0}'   -- NR is the number of records or line numbers. We are telling awk to print from line 7 to 11 and also print the line number, all of this using NR
+
+We can also get a line count with awk, like so:
+
+$ awk 'END {print NR}' /etc/shells -- this prints the number of the record once the input has been read. END does the action after the input is processed. We can add the number of lines of more files if we pass different files one after another.
