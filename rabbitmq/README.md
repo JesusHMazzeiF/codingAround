@@ -1,7 +1,8 @@
 # Rabbit MQ Tool
 
 ### Tool used to send and receive messages through rabbit mq queues
-####Configurations:
+#### Configurations:
+
 queue.name=rabbit-test-queue
 
 rabbit.host=localhost
