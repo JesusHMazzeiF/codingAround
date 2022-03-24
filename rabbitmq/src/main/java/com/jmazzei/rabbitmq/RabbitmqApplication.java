@@ -20,10 +20,7 @@ public class RabbitmqApplication {
 	@Autowired
 	Environment environment;
 
-	@Autowired
 	QueueConsumerImpl queueConsumer;
-
-	@Autowired
 	QueueConsumerImpl queuePublisher;
 
 	@Bean

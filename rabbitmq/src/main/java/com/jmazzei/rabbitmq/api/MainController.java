@@ -16,8 +16,6 @@ import java.util.Map;
 @RequestMapping(path = "/rabbit-mq")
 public class MainController {
 
-    @Autowired
-    QueueConsumerImpl queueConsumer;
 
     @Autowired
     QueuePublisher queuePublisher;

@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.concurrent.TimeoutException;
 import java.util.logging.Logger;
 
-public class QueuePublisherImpl implements QueuePublisher{
+public class QueuePublisherImpl implements QueuePublisher {
 
     String queueName;
     String host;
@@ -26,7 +26,8 @@ public class QueuePublisherImpl implements QueuePublisher{
     private Channel channel;
     private Connection connection;
 
-    public QueuePublisherImpl(String queueName, String exchange, String host, int port, String userName, String password) {
+    public QueuePublisherImpl(String queueName, String exchange, String host, int port, String userName,
+                              String password) {
         this.queueName = queueName;
         this.exchange = exchange;
         this.host = host;
@@ -36,42 +37,23 @@ public class QueuePublisherImpl implements QueuePublisher{
 
     }
 
-    public String createMessage() throws JsonProcessingException {
-        Map<String, Object> content = new HashMap<>();
-        Map<String, Object> fields = new HashMap<>();
-        content.put("id",1);
-        content.put("token", "eyJhbGciOiJIUzUxMiJ9" +
-                ".eyJzdWIiOiJqaGlkYWxnb0BtZXNzYW5naS5jb20iLCJhdXRob3JpdGllcyI6eyJsb2dpbiI6IjEiLCJpc0VudGVycHJpc2UiOiIxIn0sInNhbHQiOjE2MTU0MDYwMjAxNTh9.pKbJ0zTVusHuhju9GNmWq1rTPvTZQW8Qzrv2naXpKUhFMy1jH52KTNI9WmoNjZY4-Do4uNYdsMcl_fQupDy2BA");
-        fields.put("receiver", "57000000005_i_");
-        fields.put("planId", "plan_1");
-        fields.put("campaignLabel","demo");
-        content.put("fields", fields);
-        return new ObjectMapper().writeValueAsString(content);
-    }
-
     @Override
     public void publish(String content) {
         try {
             channel.basicPublish("", queueName, null, content.getBytes(
                     StandardCharsets.UTF_8));
-            try {
-                channel.close();
-            } catch (TimeoutException e) {
-                e.printStackTrace();
-            }
-            connection.close();
         } catch (IOException e) {
-            logger.severe("Error getting channel" + e);
+            logger.severe("Could not publish message: " + e);
             return;
         }
-        System.out.println("[x] Published: ".concat(content));
+        logger.info("[x] Published: ".concat(content));
         return;
     }
 
     @Override
     public void connect() {
         try {
-            channel.queueDeclare(queueName, false, false, false ,null);
+            channel.queueDeclare(queueName, false, false, false, null);
         } catch (Exception e) {
             logger.severe("Error getting channel" + e);
         }
