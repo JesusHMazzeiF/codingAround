@@ -38,6 +38,7 @@ public class QueueConsumerImpl implements QueueConsumer{
         try {
             channel.queueDeclare(queueName, false, false, false, null);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.severe("Error getting channel" + e);
         }
     }

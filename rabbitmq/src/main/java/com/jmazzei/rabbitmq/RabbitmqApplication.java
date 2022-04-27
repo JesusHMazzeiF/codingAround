@@ -21,21 +21,21 @@ public class RabbitmqApplication {
 	Environment environment;
 
 	QueueConsumerImpl queueConsumer;
-	QueueConsumerImpl queuePublisher;
+	QueuePublisherImpl queuePublisher;
 
-	@Bean
-	public QueueConsumerImpl queueConsumer(){
-		QueueConsumerImpl queueConsumer = new QueueConsumerImpl(environment.getProperty("queue.name", "my-queue"),
-									 environment.getProperty("rabbit.host", "localhost"),
-									 Integer.valueOf(environment.getProperty("rabbit.port", "5732")),
-									 environment.getProperty("rabbit.user", "guest"),
-									 environment.getProperty("rabbit.password", "guest"));
-		queueConsumer.setConnection();
-		queueConsumer.setChannel();
-		queueConsumer.connect();
-		queueConsumer.listen();
-		return queueConsumer;
-	}
+//	@Bean
+//	public QueueConsumerImpl queueConsumer(){
+//		QueueConsumerImpl queueConsumer = new QueueConsumerImpl(environment.getProperty("queue.name", "my-queue"),
+//									 environment.getProperty("rabbit.host", "localhost"),
+//									 Integer.valueOf(environment.getProperty("rabbit.port", "5732")),
+//									 environment.getProperty("rabbit.user", "guest"),
+//									 environment.getProperty("rabbit.password", "guest"));
+//		queueConsumer.setConnection();
+//		queueConsumer.setChannel();
+//		queueConsumer.connect();
+//		queueConsumer.listen();
+//		return queueConsumer;
+//	}
 
 	@Bean
 	public QueuePublisherImpl queuePublisher(){
@@ -47,7 +47,7 @@ public class RabbitmqApplication {
 									 environment.getProperty("rabbit.password", "guest"));
 		queuePublisher.setConnection();
 		queuePublisher.setChannel();
-		queuePublisher.connect();
+//		queuePublisher.connect();
 		return queuePublisher;
 	}
 

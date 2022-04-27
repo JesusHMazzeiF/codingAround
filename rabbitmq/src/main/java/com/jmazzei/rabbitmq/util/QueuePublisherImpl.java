@@ -40,7 +40,7 @@ public class QueuePublisherImpl implements QueuePublisher {
     @Override
     public void publish(String content) {
         try {
-            channel.basicPublish("", queueName, null, content.getBytes(
+            channel.basicPublish(exchange, queueName, null, content.getBytes(
                     StandardCharsets.UTF_8));
         } catch (IOException e) {
             logger.severe("Could not publish message: " + e);
@@ -55,6 +55,7 @@ public class QueuePublisherImpl implements QueuePublisher {
         try {
             channel.queueDeclare(queueName, false, false, false, null);
         } catch (Exception e) {
+            e.printStackTrace();
             logger.severe("Error getting channel" + e);
         }
     }
