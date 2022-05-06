@@ -1,6 +1,7 @@
 'use strict';
 function plusMinus(arr) {
   // Write your code here
+  
   let positiveRatio = 0;
   let zeroRatio = 0;
   let negativeRatio = 0;
@@ -18,7 +19,15 @@ function plusMinus(arr) {
   console.log(zeroRatio.toFixed(6));
 }
 
+
+function plusMinusImproved(arr){
+  console.log((arr.filter( item => item > 0).length/arr.length).toFixed(6))
+  console.log((arr.filter( item => item < 0).length/arr.length).toFixed(6))
+  console.log((arr.filter( item => item == 0).length/arr.length).toFixed(6))
+}
+
 const array = [1, 1, 0, -1, -1];
+// plusMinus(array)
 
 function staircase(n) {
   // Write your code here
@@ -59,4 +68,75 @@ function gradingStudents(grades) {
   return grades;
 }
 
-gradingStudents([73, 67, 38, 33]);
+// gradingStudents([73, 67, 38, 33]);
+
+function miniMaxSum(arr){
+  const totalSum = arr.reduce((previousValue, currentValue) => previousValue + currentValue)
+  const sortedArra = arr.sort()
+  console.log(`${totalSum - sortedArra[arr.length-1]} ${totalSum - sortedArra[0]}`)
+
+}
+
+// miniMaxSum([1,3,5,7,9])
+
+function findMedian(arr) {
+  // Write your co
+  const sortedArr = arr.sort()
+  return sortedArr[(sortedArr.length-1)/2]
+}
+
+// console.log(findMedian([5,3,1,2,4]))
+
+function lonleyInteger(a){
+    if(a.length === 1)
+      return a[0];
+    const aSorted = a.sort()
+    for(let i = 1 ; i < aSorted.length; i++){
+      if(aSorted[i] !== aSorted[i+1] && aSorted[i] !== aSorted[i-1])
+      return aSorted[i];
+    }
+}
+
+
+function diagonalDifference(arr) {
+  let ltrDiagonal = 0, rtlDiagonal = 0; 
+  for(let i = 0; i < arr.length ; i++){
+    ltrDiagonal += arr[i][i]
+    rtlDiagonal += arr[i][arr.length-1-i]
+  }
+  return Math.abs(ltrDiagonal - rtlDiagonal)
+}
+
+// console.log(diagonalDifference([[1,2,3], [4,5,6], [9,8,9]]))
+
+function countingSort(arr){
+  const fArr = new Array(100).fill(0)
+  for(const item of arr){
+    fArr[item]++
+  }
+  return fArr
+}
+
+
+// console.log(countingSort([1,2,3,1,2,3,1,1,33]))
+
+function flippingTheMatrix(matrix){
+  
+  
+
+} 
+const exampleArray = [[112, 42, 83, 119], [56, 125, 56, 49], [15, 78, 101, 43], [62, 98, 114, 108]]
+
+console.log(flippingTheMatrix(exampleArray))
+
+const twoDimensionalArray = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
+
+function transpose(matrix) {
+  return matrix[0].map((col, i) => matrix.map(row => row[i]));
+}
+
+// console.log(transpose(twoDimensionalArray))
