@@ -1,7 +1,7 @@
 'use strict';
 function plusMinus(arr) {
   // Write your code here
-  
+
   let positiveRatio = 0;
   let zeroRatio = 0;
   let negativeRatio = 0;
@@ -20,10 +20,10 @@ function plusMinus(arr) {
 }
 
 
-function plusMinusImproved(arr){
-  console.log((arr.filter( item => item > 0).length/arr.length).toFixed(6))
-  console.log((arr.filter( item => item < 0).length/arr.length).toFixed(6))
-  console.log((arr.filter( item => item == 0).length/arr.length).toFixed(6))
+function plusMinusImproved(arr) {
+  console.log((arr.filter(item => item > 0).length / arr.length).toFixed(6))
+  console.log((arr.filter(item => item < 0).length / arr.length).toFixed(6))
+  console.log((arr.filter(item => item == 0).length / arr.length).toFixed(6))
 }
 
 const array = [1, 1, 0, -1, -1];
@@ -70,10 +70,10 @@ function gradingStudents(grades) {
 
 // gradingStudents([73, 67, 38, 33]);
 
-function miniMaxSum(arr){
+function miniMaxSum(arr) {
   const totalSum = arr.reduce((previousValue, currentValue) => previousValue + currentValue)
   const sortedArra = arr.sort()
-  console.log(`${totalSum - sortedArra[arr.length-1]} ${totalSum - sortedArra[0]}`)
+  console.log(`${totalSum - sortedArra[arr.length - 1]} ${totalSum - sortedArra[0]}`)
 
 }
 
@@ -82,36 +82,36 @@ function miniMaxSum(arr){
 function findMedian(arr) {
   // Write your co
   const sortedArr = arr.sort()
-  return sortedArr[(sortedArr.length-1)/2]
+  return sortedArr[(sortedArr.length - 1) / 2]
 }
 
 // console.log(findMedian([5,3,1,2,4]))
 
-function lonleyInteger(a){
-    if(a.length === 1)
-      return a[0];
-    const aSorted = a.sort()
-    for(let i = 1 ; i < aSorted.length; i++){
-      if(aSorted[i] !== aSorted[i+1] && aSorted[i] !== aSorted[i-1])
+function lonleyInteger(a) {
+  if (a.length === 1)
+    return a[0];
+  const aSorted = a.sort()
+  for (let i = 1; i < aSorted.length; i++) {
+    if (aSorted[i] !== aSorted[i + 1] && aSorted[i] !== aSorted[i - 1])
       return aSorted[i];
-    }
+  }
 }
 
 
 function diagonalDifference(arr) {
-  let ltrDiagonal = 0, rtlDiagonal = 0; 
-  for(let i = 0; i < arr.length ; i++){
+  let ltrDiagonal = 0, rtlDiagonal = 0;
+  for (let i = 0; i < arr.length; i++) {
     ltrDiagonal += arr[i][i]
-    rtlDiagonal += arr[i][arr.length-1-i]
+    rtlDiagonal += arr[i][arr.length - 1 - i]
   }
   return Math.abs(ltrDiagonal - rtlDiagonal)
 }
 
 // console.log(diagonalDifference([[1,2,3], [4,5,6], [9,8,9]]))
 
-function countingSort(arr){
+function countingSort(arr) {
   const fArr = new Array(100).fill(0)
-  for(const item of arr){
+  for (const item of arr) {
     fArr[item]++
   }
   return fArr
@@ -120,14 +120,24 @@ function countingSort(arr){
 
 // console.log(countingSort([1,2,3,1,2,3,1,1,33]))
 
-function flippingTheMatrix(matrix){
-  
-  
-
-} 
+function flippingTheMatrix(matrix) {
+  let totalSum = 0
+  const n = matrix.length - 1
+  for (let i = 0; i < matrix.length / 2; i++) {
+    for (let j = 0; j < matrix[i].length / 2; j++) {
+      totalSum += Math.max(
+        matrix[i][j],
+        matrix[i][n - j],
+        matrix[n - i][j],
+        matrix[n - i][n - j],
+      )
+    }
+  }
+  return totalSum
+}
 const exampleArray = [[112, 42, 83, 119], [56, 125, 56, 49], [15, 78, 101, 43], [62, 98, 114, 108]]
 
-console.log(flippingTheMatrix(exampleArray))
+// console.log(flippingTheMatrix(exampleArray))
 
 const twoDimensionalArray = [
   [1, 2, 3],
@@ -139,4 +149,127 @@ function transpose(matrix) {
   return matrix[0].map((col, i) => matrix.map(row => row[i]));
 }
 
-// console.log(transpose(twoDimensionalArray))
+// console.log(transpose(twoDimensionalArray))}
+
+// console.log(Math.max(2,3,6,13))
+
+function towerBreakers(n, m) {
+  return (m === 1 || n % 2 == 0) ? 2 : 1
+}
+
+function caesarsCipher(s, k) {
+  let newString = ''
+  for (let i = 0; i < s.length; i++) {
+    let asciiChar = s[i].charCodeAt(0);
+    let newAciichar = asciiChar + k
+    if (asciiChar >= 65 && asciiChar <= 90) {
+      if (newAciichar > 90) {
+        newString = newString.concat(String.fromCodePoint((newAciichar % 90) + 64))
+      }
+      else {
+        newString = newString.concat(String.fromCodePoint(newAciichar))
+      }
+    }
+    else if (asciiChar >= 97 && asciiChar <= 122) {
+      if (newAciichar > 122) {
+        newString = newString.concat(String.fromCodePoint((newAciichar % 122) + 96))
+      }
+      else {
+        newString = newString.concat(String.fromCodePoint(newAciichar))
+      }
+    }
+    else {
+      newString = newString.concat(s[i])
+    }
+  }
+  return newString
+}
+
+
+
+// console.log(caesarsCipher("www.abc.xy", 87))
+
+// function palindromeIndex(s) {
+//   // Write your code here
+//   let index = -1
+//   let removedIndex = false
+//   for(let i = 0; i < s.length; i++){
+//     let leftI = 0 + i
+//     let rightI = s.length - 1 - i
+//     if(s[leftI] !== s[rightI]){
+//       if(s[leftI+1] === s[rightI]){
+//         s = s.concat(s.substring(0, leftI), s.substring(leftI+1,s.length))
+//       }
+//       else if(s[leftI] === s[rightI-1]){
+//         s = s.concat(s.substring(0, rightI), s.substring(rightI == s.length-1?s.length,s.length))
+//       }
+//     }
+//   }
+// }
+
+
+// function gridChallenge(grid) {
+//   // Write your code here
+//   for(let i = 0; i < grid.length; i++) {
+//     grid[i].sort()
+//   }
+
+//   for(let i = 0; i < grid.length-1; i++) {
+
+//   }
+// }
+
+
+function countFamilyLogins(logins) {
+  // Write your code here
+  function rotateString(s, k) {
+    let newString = ''
+    for (let i = 0; i < s.length; i++) {
+      let asciiChar = s[i].charCodeAt(0);
+      let newAciichar = asciiChar + k
+      if (asciiChar >= 97 && asciiChar <= 122) {
+        if (newAciichar > 122) {
+          newString = newString.concat(String.fromCodePoint((newAciichar % 122) + 96))
+        }
+        else {
+          newString = newString.concat(String.fromCodePoint(newAciichar))
+        }
+      }
+    }
+    return newString
+  }
+  let total = 0
+  for (const login of logins) {
+    const rotatedL = rotateString(login, 1)
+    for (let i = 0; i < logins.length; i++) {
+      if (rotatedL === logins[i]) {
+        ++total
+      }
+    }
+  }
+  return total
+}
+
+
+// console.log(countFamilyLogins(['corn', 'horn', 'dpso', 'eqtp', 'corn']))
+
+
+function countPossibleSegments(k, weights) {
+  // Write your code here
+  let permutations = 0
+  console.log(weights)
+  for(let i = 0; i < weights.length; i++) {
+    for(let j = i; j < weights.length; j++) {
+      console.log(`Splicing array with lowerI ${i} and upperI ${j}`)
+      const subArray = j + 1 === weights.length ? weights.slice(i) : weights.slice(i, j + 1)
+      console.log(subArray)
+      if((Math.max(...subArray) - Math.min(...subArray)) <= k){
+        permutations += 1
+      }
+    }
+  }
+  return permutations
+}
+
+
+console.log(countPossibleSegments(3, [1,3,6]))
