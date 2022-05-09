@@ -159,6 +159,7 @@ function towerBreakers(n, m) {
 
 function caesarsCipher(s, k) {
   let newString = ''
+  k = k < 26 ? k : k%26
   for (let i = 0; i < s.length; i++) {
     let asciiChar = s[i].charCodeAt(0);
     let newAciichar = asciiChar + k
@@ -250,7 +251,6 @@ function countFamilyLogins(logins) {
   return total
 }
 
-
 // console.log(countFamilyLogins(['corn', 'horn', 'dpso', 'eqtp', 'corn']))
 
 
@@ -270,6 +270,5 @@ function countPossibleSegments(k, weights) {
   }
   return permutations
 }
-
 
 console.log(countPossibleSegments(3, [1,3,6]))
