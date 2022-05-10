@@ -159,7 +159,7 @@ function towerBreakers(n, m) {
 
 function caesarsCipher(s, k) {
   let newString = ''
-  k = k < 26 ? k : k%26
+  k = k < 26 ? k : k % 26
   for (let i = 0; i < s.length; i++) {
     let asciiChar = s[i].charCodeAt(0);
     let newAciichar = asciiChar + k
@@ -258,12 +258,12 @@ function countPossibleSegments(k, weights) {
   // Write your code here
   let permutations = 0
   console.log(weights)
-  for(let i = 0; i < weights.length; i++) {
-    for(let j = i; j < weights.length; j++) {
+  for (let i = 0; i < weights.length; i++) {
+    for (let j = i; j < weights.length; j++) {
       console.log(`Splicing array with lowerI ${i} and upperI ${j}`)
       const subArray = j + 1 === weights.length ? weights.slice(i) : weights.slice(i, j + 1)
       console.log(subArray)
-      if((Math.max(...subArray) - Math.min(...subArray)) <= k){
+      if ((Math.max(...subArray) - Math.min(...subArray)) <= k) {
         permutations += 1
       }
     }
@@ -271,4 +271,35 @@ function countPossibleSegments(k, weights) {
   return permutations
 }
 
-console.log(countPossibleSegments(3, [1,3,6]))
+// console.log(countPossibleSegments(3, [1,3,6]))
+
+
+function gridChallenge(grid) {
+  // Write your code here
+  for (let i = 0; i < grid.length; i++) {
+    grid[i] = grid[i].split('').sort()
+  }
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid.length - 1; j++) {
+      if (grid[j][i] > grid[j + 1][i])
+        return 'NO'
+    }
+  }
+  return 'YES'
+}
+
+const grid = ['abc', 'ade', 'efg'];
+
+// console.log(gridChallenge(grid))
+
+
+
+function superDigit(n, k = 1) {
+  // Write your code here 
+  if (n.length === 1) 
+    return n
+  return superDigit(String((n.split('').reduce((previousValue, currentValue) => parseInt(previousValue) + parseInt(currentValue)))*k))
+}
+
+console.log(superDigit('148', 3))
