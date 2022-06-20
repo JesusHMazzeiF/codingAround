@@ -25,12 +25,12 @@ public class RestCaller {
     public static void main(String[] args) {
         String baseUrl = "orbit/api/bill/";
 //        String baseUrl = "http://backend17.ogangi.com:9020/orbit/api/topup/";
-        String account = "58212112123";
-        String amount = "0.0";
+        String account = "18765422032";
+        String amount = "1.0";
         String callbackUrl = "null";
-        String hints = "default:default;cascade:true";
-        String privateKey = "7b551ef3-44d3-49c4-9cb5-d565a0c4e04b";
-        String publicKey = "b096f3ac-0100-11e8-ba89-0ed5f89f718b";
+        String hints = "null";
+        String privateKey = "7a551de3-44c3-49b4-9ba5-c565b0c4d04a";
+        String publicKey = "c096e3bd-0100-11f8-cb89-0fr5f89f718a";
         callOrbit(baseUrl, account, amount, callbackUrl, hints, privateKey, publicKey);
     }
 
@@ -104,7 +104,7 @@ public class RestCaller {
                                   String privateKey, String publicKey){
 
         try{
-            String baseUrl = "http://backend17.ogangi.com:9020/";
+            String baseUrl = "https://reycreo.messangi.me/";
             long timestamp = System.currentTimeMillis();
 
             RestTemplate restTemplate = new RestTemplate();
@@ -121,7 +121,7 @@ public class RestCaller {
             billUrl.append(RestCaller.encodeB64URLSafe(hints.toString()));
 
             System.out.println(billUrl);
-
+            System.out.println("Timestamp: " + timestamp);
             HttpHeaders headers = new HttpHeaders();
             headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
             headers.add("timestamp", String.valueOf(timestamp));
